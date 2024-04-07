@@ -4,6 +4,8 @@ import "./index.css"
 
 function Edit(props) {
     const [loadingText, setLoadingText] = useState("...")
+    const storeToRemember = props.store.storeName;
+    
     const [storeData, setStoreData] = useState({
         storeName: props.store.storeName,
         storeLocation: props.store.storeLocation,
@@ -22,7 +24,7 @@ function Edit(props) {
         productQuantity: '',
         productDescription: '',
         productExpiry: '',
-        productStore: '',
+        productStore: storeToRemember,
     });
 
     const handleStoreChange = (e) => {
@@ -73,7 +75,7 @@ function Edit(props) {
             ...storeData,
             storeProducts: storeData.storeProducts.map(product => ({
                 ...product,
-                productStore: storeData.storeName
+                productStore: storeToRemember
             }))
         };
 

@@ -78,9 +78,15 @@ app.post('/api/login', async (req, res) => {
 });
 
 app.post('/api/updateUserStore', async (req, res) => {
+  console.log(req.body)
   try {
     const { email, storeData } = req.body;
-
+    console.log(storeData)
+    for(let i in storeData) {
+      if(i == "StoreProducts") {
+        console.log(storeData[i])
+      }
+    }
     if (!email || !storeData || !storeData.storeName) {
       return res.status(400).json({ error: "Incomplete fields" });
     }
@@ -106,7 +112,7 @@ app.post('/api/updateUserStore', async (req, res) => {
     return res.json({ message: "Store updated successfully", user: user });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ error: "Internal server error" });
+    return res.status(500).json({ message: "Store not updated!", error: "Internal server error" });
   }
 });
 
@@ -308,6 +314,7 @@ app.post('/api/updateStoreRevenue', async (req, res) => {
 
 app.post('/api/incrementStoreOrder', async (req, res) => {
   try {
+    console.log(req.body)
     const { storeName } = req.body;
     console.log(storeName)
     if (!storeName) {

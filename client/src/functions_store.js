@@ -27,6 +27,7 @@ export async function CreateStore(email, storeData) {
 
 export async function UpdateStore(email, storeData) {
     try {
+        console.log(storeData)
         const response = await fetch(UPDATE_STORE_URL, {
             method: 'POST',
             headers: {

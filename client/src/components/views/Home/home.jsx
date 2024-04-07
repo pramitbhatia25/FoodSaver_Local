@@ -9,7 +9,6 @@ function Home(props) {
         const [liked, setLiked] = useState(false);
         const [e, setE] = useState("");
         const [debug_message, setDebug_Message] = useState(props.msg);
-        console.log(props.product && props.product.productStore && props.product.productStore)
 
         const handleLikeClick = () => {
             if (props.type === "food") {
@@ -45,19 +44,10 @@ function Home(props) {
         );
     };
 
-    function gotoDashboard(e) {
+    function gotoDiscover(e) {
         e.preventDefault();
-        window.location = "/dashboard"
+        window.location = "/discover"
     }
-    const [searchTerm, setSearchTerm] = useState('');
-
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter' && searchTerm.trim() !== '') {
-            // Call your function here, passing the searchTerm if needed
-            console.log('Enter key pressed! Search term:', searchTerm);
-        }
-    };
-
 
     return <>
         <div className="page1">
@@ -79,9 +69,7 @@ function Home(props) {
                                         type='text'
                                         className="searchbar"
                                         placeholder="🔍 show me cheap pizza under 5$ ..."
-                                        value={searchTerm}
-                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                        onKeyPress={handleKeyPress}
+                                        onClick={gotoDiscover}
                                     >
                                     </input>
                                 </div>
@@ -152,7 +140,7 @@ function Home(props) {
                             </div>
                         ))}
                     </div>
-                    <div className="hero2_title">
+                    <div id="events" className="hero2_title">
                         Explore Events
                     </div>
                     <div className="hero2_text">

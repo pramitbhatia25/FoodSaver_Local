@@ -5,8 +5,9 @@ import MyComponent from "./map-c";
 
 function Map(props) {
 
-    function navToLink(storeUrl) {
-        window.location = storeUrl
+    function navToLink() {
+        window.location.href = '/#events';
+
     }
 
     const [markers, setMarkers] = useState([]);
@@ -22,22 +23,25 @@ function Map(props) {
     
     useEffect(() => {
         let newMarkers = []
-        if (props.stores[0]['imageUrl'] !== "") {
-            const fetchLonLan = async () => {
-                for (let i = 0; i < props.stores.length; i++) {
-                    console.log(props.stores[i].storeLocation)
-                    let lonlan = await getLonLan(props.stores[i].storeLocation)
-                    newMarkers.push({ lat: lonlan[0], lng: lonlan[1] })
-                }
-                setMarkers(newMarkers)
-            };
-            fetchLonLan();
+        if(props.stores.length != 0) {
+            if (props.stores[0]['imageUrl'] !== "") {
+                const fetchLonLan = async () => {
+                    for (let i = 0; i < props.stores.length; i++) {
+                        console.log(props.stores[i].storeLocation)
+                        let lonlan = await getLonLan(props.stores[i].storeLocation)
+                        newMarkers.push({ lat: lonlan[0], lng: lonlan[1] })
+                    }
+                    setMarkers(newMarkers)
+                };
+                fetchLonLan();
+            }    
         }
     }, [props.stores]); // Make sure to include props.stores in the dependency array to trigger useEffect on change
     
     useEffect(() => {
         let newEMarkers = []
-        if (props.events[0]['imageUrl'] !== "") {
+        if(props.events.length != 0) {
+            if (props.events[0]['imageUrl'] !== "") {
             const fetchLonLan = async () => {
                 for (let i = 0; i < props.events.length; i++) {
                     console.log(props.events[i].eventLocation)
@@ -47,7 +51,7 @@ function Map(props) {
                 setEventMarkers(newEMarkers)
             };
             fetchLonLan();
-        }
+        }}
     }, [props.events]); // Make sure to include props.stores in the dependency array to trigger useEffect on change
 
 
@@ -85,7 +89,7 @@ function Map(props) {
                                         <div className="event_store_title_sub sub_2">{item.imageUrl === '' ? "Loading..." : item.eventLocation}</div>
                                         <div className="event_store_title_sub sub_2">{item.imageUrl === '' ? "Loading..." : item.eventRSVP + " people going"}</div>
                                     </div>
-                                    <div onClick={() => { navToLink(item.storeUrl) }} className="event_store_click">
+                                    <div onClick={() => {navToLink()}} className="event_store_click">
                                         →
                                     </div>
                                 </div>

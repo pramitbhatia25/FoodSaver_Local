@@ -36,7 +36,6 @@ function App() {
       })
       if (response.ok) {
         const data = await response.json();
-        console.log(data)
         const userDetails = {
           name: data.user.name,
           email: data.user.email,
@@ -46,7 +45,6 @@ function App() {
         setUser(userDetails);
         return userDetails
       } else {
-        console.error('Failed to fetch data');
         alert("Don't mess with cookies!")
 
         document.cookie = 'email=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
@@ -77,15 +75,13 @@ function App() {
     })
     if (response.ok) {
       const data = await response.json();
-      console.log("A")
-      console.log(data)
       setFoodNearMe(data.products)
       setStoresNearMe(data.stores)
       setEventsNearMe(data.events)
-    } else {
-      console.error('Failed to fetch data');
     }
-  }
+    else {
+      console.error('Failed to fetch data');
+    }  }
 
   useEffect(() => {
 
@@ -136,19 +132,15 @@ function App() {
       }),
       method: 'POST',
     })
-    console.log(response)
     if (response.ok) {
       const responseData = await response.json(); // Parse the response as JSON
       const aiResponseString = responseData.ai_response; // Get the nested string representation
       const correctedResponseString = aiResponseString.replace(/'/g, '"'); // Replace single quotes with double quotes
-      console.log(correctedResponseString)
       const aiResponse = JSON.parse(correctedResponseString); // Parse the nested string representation as JSON
 
 
       // Extract food_names and other properties from aiResponse
       const foodNames = aiResponse.food_names;
-      console.log(foodNearMe)
-      console.log(foodNames);
 
       // Create a new array to hold the reordered items
       const reorderedFoodNearMe = [];
@@ -163,7 +155,6 @@ function App() {
         }
       });
 
-      console.log(reorderedFoodNearMe)
       setFoodNearMe(reorderedFoodNearMe)
     } else {
       console.error('Failed to fetch data');

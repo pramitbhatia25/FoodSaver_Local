@@ -3,6 +3,8 @@ import "./index.css";
 import Header from "../../shared/Header/header";
 import { useState, useEffect } from "react";
 import Table from "./table";
+import { Chart } from 'react-chartjs-2';
+import { ChartT } from "./chart";
 
 function Dashboard(props) {
     const [storeData, setStoreData] = useState([])
@@ -18,24 +20,50 @@ function Dashboard(props) {
         window.location = "/createEvent";
     }
 
+    let [tempTransactions, setTempTransactions] = useState([])
+
     useEffect(() => {
         setStoreData(props.user.stores)
-
+        let tempt = []
         if (props.user && props.user.stores && props.user.stores.length > 0) {
             let r = 0
             let o = 0
             for (let i = 0; i < props.user.stores.length ; i++) {
                 r += props.user.stores[i]['storeRevenue']
                 o += props.user.stores[i]['storeTotalOrders']
-                console.log("ABS")
-                console.log(props.user.stores[i]['storeTransactions'])
+                for (let j = 0; j < props.user.stores[i]['storeTransactions'].length; j+=1) {
+                    tempt.push(props.user.stores[i]['storeTransactions'][j])
+                }
             }
             setRevenue(r)
             setOrders(o)
+
+
+            
+            const combinedTransactions = {};
+
+            // Iterate through each transaction
+            tempt.forEach(transaction => {
+                const date = transaction.date;
+                const productPrice = transaction.productPrice;
+            
+                // If the date already exists in the combinedTransactions object, add the productPrice to the existing total
+                if (combinedTransactions[date]) {
+                    combinedTransactions[date] += productPrice;
+                } else {
+                    // If the date doesn't exist, create a new entry with the productPrice as the initial value
+                    combinedTransactions[date] = productPrice;
+                }
+            });
+            
+            console.log(combinedTransactions);
+                        
+            setTempTransactions(combinedTransactions)
         } else {
             setRevenue(0)
             setOrders(0)
         }
+        
     }, [props.user.stores])
 
 
@@ -96,15 +124,9 @@ function Dashboard(props) {
                                 Revenue Over Time
                             </div>
                             <div className="ras_tile_2">
-
-                            </div>
-                        </div>
-                        <div className="ras_tile2">
-                            <div className="ras_tile_1">
-                                Orders Over Time
-                            </div>
-                            <div className="ras_tile_2">
-
+                                <div className="revenue_chart">                            
+                                    <ChartT customData={tempTransactions}/>
+                                </div>
                             </div>
                         </div>
                     </div>

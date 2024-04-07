@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://food-saver-local-backend.vercel.app';
+const API_BASE_URL = 'http://localhost:1337';
 const ML_BASE_URL = 'http://localhost:5000';
 
 export const LOGIN_API_URL = `${API_BASE_URL}/api/login`;

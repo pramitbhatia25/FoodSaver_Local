@@ -112,7 +112,7 @@ body {
   resize: none;
   border-radius: 15px;
   padding: 0;
-  outline: none !important;
+  outline: none;
   border: none;
   overflow: hidden;
   overflow-x: auto;
@@ -121,6 +121,12 @@ body {
   -ms-overflow-style: none; /* Internet Explorer 10+ */
   color: #b69e80;
   background-color: #f3eee7;
+  cursor: pointer;
+}
+
+.searchbar:focus {
+  outline: none;
+  border: none;
 }
 
 .hero2_title {

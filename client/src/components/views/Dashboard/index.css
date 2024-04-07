@@ -97,7 +97,14 @@
     border: 1px solid #b69e80;
     border-radius: 10px;
     background-color: #f3eee7;
-    width: 48% !important;
+    width: 100% !important;
+}
+
+.revenue_chart {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 .ras_tile {

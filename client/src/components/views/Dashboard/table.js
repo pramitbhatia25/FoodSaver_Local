@@ -2,11 +2,8 @@ import { useEffect, useState } from "react"
 import "./index.css"
 
 export default function Table(props) {
-    console.log("A")
-    console.log(props)
 
     function editStore(row) {
-        console.log(row)
         window.location = `/${row.storeName}`
     }
 

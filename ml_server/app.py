@@ -1,8 +1,15 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 from openai import OpenAI
-client = OpenAI()
+import openai
+import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI()
 
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": "http://localhost:3000"}})
@@ -68,14 +75,21 @@ def getAddress():
             data = request.get_json()
             loc = data.get("address", "")
             import requests
-
-            api_key = 'AIzaSyD9QMP_1gywriOXtiDqPHUStgwSbBK_Fg4'  # Replace 'YOUR_API_KEY_HERE' with your actual API key
+            api_key = os.getenv("REACT_APP_GOOGLE_MAPS_API_KEY")  # Replace 'YOUR_API_KEY_HERE' with your actual API key
             url = f'https://maps.googleapis.com/maps/api/geocode/json?address={loc}&key={api_key}'
             response = requests.get(url)
 
 
             resp_json_payload = response.json()
-            print(resp_json_payload['results'][0]['geometry']['location'])
+            
+            location = resp_json_payload['results'][0]['geometry']['location'] if 'results' in resp_json_payload and resp_json_payload['results'] else "Not Avail"
+            print(location)
+            import json
+            json_response = json.loads("{'lat': 33.755711, 'lng': -84.3883717}".replace("'", '"'))
+
+            if(location == "Not Avail"):
+                return jsonify({"status": "ok", "ai_response": json_response})
+
             return jsonify({"status": "ok", "ai_response": resp_json_payload['results'][0]['geometry']['location']})
 
         except Exception as e:
