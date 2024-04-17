@@ -26,10 +26,10 @@ function Header(props) {
                 ◾ foodsaver
                 </div>
                 <div className="navs">
-                <a className="nav" href="/discover">discover</a>
-                <a className="nav" href="/map">map</a>
+                <a className="nav" href="/discover">Discover</a>
+                <a className="nav" href="/map">Map</a>
                 {props.signedIn ? <>
-                    <a className="nav" href="/dashboard">my dashboard</a>
+                    <a className="nav" href="/dashboard">My Dashboard</a>
                     </>:<>
                 </>
                 }
@@ -55,9 +55,26 @@ function Header(props) {
 
             {dropdownOpen && (
                 <div className="dropdown-menu">
-                    HI
-                    HI
-                    HI
+                <div className="mobile_signed_in">
+
+                    {
+                        props.signedIn ? <>
+                        <a className="mobile_link" href="/discover">Discover</a>
+                        <a className="mobile_link" href="/map">Map</a>
+                        <div className="mobile_logout" onClick={logOutUser}>
+                        LogOut
+                        </div>
+                        </>:
+                        <>
+                            <a className="mobile_link"  href="/discover">Discover</a>
+                            <a className="mobile_link" href="/map">Map</a>
+                            <div className="mobile_login" onClick={props.openLogIn}>
+                            LogIn
+                            </div>
+                        </>
+                    }
+                    </div>
+
                 </div>
             )}
 
