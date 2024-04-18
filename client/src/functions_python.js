@@ -5,6 +5,7 @@ export async function getAddress(address) {
         headers: {
             'Content-Type': 'application/json',
         },
+        mode: 'no-cors',
         body: JSON.stringify({
             address: address
         }),
