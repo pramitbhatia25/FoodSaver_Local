@@ -60,7 +60,7 @@ function Create_Event(props) {
                     </form>
                     <hr />
                     <div className='loading_text'>{loadingText}</div>
-                    <button className="store_save_submit" type="button" onClick={saveEvent}>Save Store</button>
+                    <button className="store_save_submit" type="button" onClick={saveEvent}>Save Event</button>
                 </div>
             </div>
         </div>
