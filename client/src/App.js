@@ -124,8 +124,6 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
       },
-      mode: 'no-cors',
-
       body: JSON.stringify({
         storesNearMe: storesNearMe,
         eventsNearMe: eventsNearMe,
@@ -136,28 +134,73 @@ function App() {
     })
     if (response.ok) {
       const responseData = await response.json(); // Parse the response as JSON
-      const aiResponseString = responseData.ai_response; // Get the nested string representation
-      const correctedResponseString = aiResponseString.replace(/'/g, '"'); // Replace single quotes with double quotes
-      const aiResponse = JSON.parse(correctedResponseString); // Parse the nested string representation as JSON
+      const te = responseData.ai_response; // Get the nested string representation
+      // const correctedResponseString = aiResponseString.replace(/'/g, '"'); // Replace single quotes with double quotes
+      // const aiResponse = JSON.parse(correctedResponseString); // Parse the nested string representation as JSON
+
+      const aiResponse = JSON.parse(te)
+
+
 
 
       // Extract food_names and other properties from aiResponse
-      const foodNames = aiResponse.food_names;
-
+      const foodNames = await aiResponse["food_names"];
+      console.log(foodNames)
       // Create a new array to hold the reordered items
       const reorderedFoodNearMe = [];
 
       // Iterate over filteredFoodNames
-      foodNames.forEach(name => {
-        // Find the item in foodNearMe with matching foodName
-        const matchingItem = foodNearMe.find(item => item.productName === name);
-        // If a matching item is found, add it to reorderedFoodNearMe
-        if (matchingItem) {
-          reorderedFoodNearMe.push(matchingItem);
-        }
-      });
+      if (aiResponse && Array.isArray(aiResponse.food_names)) {
+        foodNames.forEach(name => {
+          const matchingItem = foodNearMe.find(item => item.productName === name);
+          if (matchingItem) {
+            reorderedFoodNearMe.push(matchingItem);
+          }
+        });
+      }
 
       setFoodNearMe(reorderedFoodNearMe)
+
+
+
+      // Extract food_names and other properties from aiResponse
+      const eventNames = await aiResponse["event_names"];
+      console.log(eventNames)
+      // Create a new array to hold the reordered items
+      const reorderedEv = [];
+
+      // Iterate over filteredFoodNames
+      if (aiResponse && Array.isArray(aiResponse.event_names)) {    
+        eventNames.forEach(name => {
+          const matchingItem = eventsNearMe.find(item => item.eventName === name);
+          if (matchingItem) {
+            reorderedEv.push(matchingItem);
+          }
+        });
+      }
+
+      setEventsNearMe(reorderedEv)
+      
+
+
+      // Extract food_names and other properties from aiResponse
+      const storeNames = await aiResponse["store_names"];
+      console.log(eventNames)
+      // Create a new array to hold the reordered items
+      const reorderedSt = [];
+
+      // Iterate over filteredFoodNames
+      if (aiResponse && Array.isArray(aiResponse.store_names)) {    
+        storeNames.forEach(name => {
+          const matchingItem = storesNearMe.find(item => item.storeName === name);
+          if (matchingItem) {
+            reorderedSt.push(matchingItem);
+          }
+        });
+      }
+
+      setStoresNearMe(reorderedSt)
+      
     } else {
       console.error('Failed to fetch data');
     }
