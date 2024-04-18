@@ -72,7 +72,7 @@ function Map(props) {
                             Upcoming Events
                         </div>
                         <div className="events_stores">
-                            {props.events.slice(0, 5).map((item, index) => { 
+                            {props.events.map((item, index) => { 
                                 return (
 
                                 <div key={index} className="event_store">

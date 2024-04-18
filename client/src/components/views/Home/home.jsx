@@ -83,7 +83,7 @@ function Home(props) {
                         Explore our curated collections for inspiration and discover the perfect menu for your next gathering
                     </div>
                     <div className="local_stores">
-                        {props.food.slice(0, 5).map((item, index) => (
+                        {props.food.map((item, index) => (
                             <div className="local_store_card" key={index}>
                                 {item.productImageUrl ? <>
                                     <div className="local_store_card_img" style={{ backgroundImage: `url(${item.productImageUrl})` }}>
@@ -113,7 +113,7 @@ function Home(props) {
                         Find local restaurants and view their catalog. Like the food? View directions to go there or order directly online!
                     </div>
                     <div className="local_stores">
-                        {props.stores.slice(0, 5).map((item, index) => (
+                        {props.stores.map((item, index) => (
                             <div className="local_store_card" key={index}>
                                 {item.storeImageUrl ? <>
                                     <div className="local_store_card_img" style={{ backgroundImage: `url(${item.storeImageUrl})` }}>
@@ -146,7 +146,7 @@ function Home(props) {
                     <div className="hero2_text">
                         Discover a world of events tailored to your interests, where every gathering promises unforgettable experiences                    </div>
                     <div className="local_stores">
-                        {props.events.slice(0, 5).map((item, index) => (
+                        {props.events.map((item, index) => (
                             <div className="local_store_card" key={index}>
                                 {item.eventImageUrl ? <>
                                     <div className="local_store_card_img" style={{ backgroundImage: `url(${item.eventImageUrl})` }}>
